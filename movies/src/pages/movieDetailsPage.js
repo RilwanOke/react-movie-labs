@@ -6,6 +6,8 @@ import Spinner from '../components/spinner';
 import MovieDetails from "../components/movieDetails/";
 import PageTemplate from "../components/templateMoviePage";
 import { Box, Container, Typography, Button } from "@mui/material";
+import MovieCredits from "../components/movieCredits";
+import MovieRecommendations from "../components/movieRecommendations";
 
 const MoviePage = () => {
   const { id } = useParams();
@@ -25,6 +27,7 @@ const MoviePage = () => {
         <Box sx={{ my: 2 }}>
           <PageTemplate movie={movie}>
             <MovieDetails movie={movie} />
+            <MovieCredits movieId={movie.id} />
             <Button variant="contained" color="primary" sx={{ mt: 2 }}>
               Watch Trailer
             </Button>
