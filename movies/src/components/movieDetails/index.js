@@ -9,6 +9,7 @@ import Fab from "@mui/material/Fab";
 import Typography from "@mui/material/Typography";
 import Drawer from "@mui/material/Drawer";
 import MovieReviews from "../movieReviews";
+import MovieRecommendations from "../movieRecommendations";
 
 const root = {
     display: "flex",
@@ -56,12 +57,16 @@ const MovieDetails = ({ movie }) => {
         ))}
       </Paper>
 
+
       <Paper component="ul" sx={{ ...root }}>
         <Chip icon={<AccessTimeIcon />} label={`${movie.runtime} min.`} />
         <Chip icon={<MonetizationIcon />} label={`${movie.revenue.toLocaleString()}`} />
         <Chip icon={<StarRate />} label={`${movie.vote_average} (${movie.vote_count}`} />
         <Chip label={`Released: ${movie.release_date}`} />
       </Paper>
+
+      
+     <MovieRecommendations movieId={movie.id} />
 
       <Fab
         color="secondary"
