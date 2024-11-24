@@ -1,39 +1,39 @@
 import React from "react";
 import { useParams } from 'react-router-dom';
+import { useQuery } from "react-query";
+import { getMovie } from '../api/tmdb-api';
+import Spinner from '../components/spinner';
 import MovieDetails from "../components/movieDetails/";
 import PageTemplate from "../components/templateMoviePage";
-import { getMovie } from '../api/tmdb-api'
-import { useQuery } from "react-query";
-import Spinner from '../components/spinner'
-//import useMovie from "../hooks/useMovie";
+import { Box, Container, Typography, Button } from "@mui/material";
 
-const MoviePage = (props) => {
+const MoviePage = () => {
   const { id } = useParams();
-  const { data: movie, error, isLoading, isError } = useQuery(
-    ["movie", { id: id }],
-    getMovie
-  );
+  const { data: movie, error, isLoading, isError } = useQuery(["movie", { id }], getMovie);
 
   if (isLoading) {
     return <Spinner />;
   }
 
   if (isError) {
-    return <h1>{error.message}</h1>;
+    return <Typography variant="h6" color="error">{error.message}</Typography>;
   }
 
   return (
-    <>
+    <Container>
       {movie ? (
-        <>
+        <Box sx={{ my: 2 }}>
           <PageTemplate movie={movie}>
             <MovieDetails movie={movie} />
+            <Button variant="contained" color="primary" sx={{ mt: 2 }}>
+              Watch Trailer
+            </Button>
           </PageTemplate>
-        </>
+        </Box>
       ) : (
-        <p>Waiting for movie details</p>
+        <Typography variant="h6">Waiting for movie details...</Typography>
       )}
-    </>
+    </Container>
   );
 };
 
